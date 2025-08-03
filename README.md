@@ -39,8 +39,8 @@ $ pip install numpy open3d PyYAML Pillow
 ```
 
 ---
-# Step2. 拉取源码并编译
-
+# Step2. 源码编译
+## 拉取源码
 在安装完依赖库后使用下面的命令编译源码，假设你的工作空间名字是 `nav_ws`：
 
 ```bash
@@ -56,6 +56,47 @@ $ git checkout ros1-legacy
 
 $ cd nav_ws/src/spatio_temporal_voxel_layer
 $ git checkout noetic-devel
+```
+
+## 修改 realsense-ros 源码
+需要对 `realsense-ros/realsense2_camera/CMakeLists.txt` 文件进行修改，主要是添加 OpenCV 相关的部分：
+
+```cmake
+find_package(OpenCV REQUIRED)     # 添加 OpenCV 库
+find_package(catkin REQUIRED COMPONENTS
+    message_generation
+    nav_msgs
+    roscpp
+    sensor_msgs
+    std_msgs
+    std_srvs
+    nodelet
+    cv_bridge
+    image_transport
+    tf
+    ddynamic_reconfigure
+    diagnostic_updater
+    OpenCV REQUIRED               # 添加 OpenCV 库
+    )
+
+...
+
+include_directories(
+    include
+    ${realsense2_INCLUDE_DIR}
+    ${catkin_INCLUDE_DIRS}
+    ${OpenCV_INCLUDE_DIRS}        # 添加 OpenCV 头文件目录
+    )
+
+...
+
+target_link_libraries(${PROJECT_NAME}
+    ${realsense2_LIBRARY}
+    ${catkin_LIBRARIES}
+    ${CMAKE_THREAD_LIBS_INIT}
+    ${OpenCV_LIBRARIES}           # 添加 OpenCV 库文件目录
+    )
+
 ```
 
 然后使用下面的命令编译源码：
