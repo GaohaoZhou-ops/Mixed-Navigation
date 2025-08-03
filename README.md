@@ -48,7 +48,17 @@ $ cd nav_ws/src
 $ git clone --recursive git@github.com:GaohaoZhou-ops/Mixed-Navigation.git
 ```
 
-使用下面的命令编译源码：
+因为这里没有对另外两个包中的源码进行修改，所以在拉取后还需要切换一下分支：
+
+```bash
+$ cd nav_ws/src/realsense-ros
+$ git checkout ros1-legacy
+
+$ cd nav_ws/src/spatio_temporal_voxel_layer
+$ git checkout noetic-devel
+```
+
+然后使用下面的命令编译源码：
 
 ```bash
 $ cd nav_ws
