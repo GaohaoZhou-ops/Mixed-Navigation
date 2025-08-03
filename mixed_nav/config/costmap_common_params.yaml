@@ -1,0 +1,28 @@
+#==================== 通用代价地图参数 ====================
+# 机器人的几何形状，可以是'footprint'或'robot_radius'
+# footprint: [[x1, y1], [x2, y2], ..., [xn, yn]] # 对于非圆形机器人
+robot_radius: 0.18 # 对于圆形机器人，单位：米
+
+# 障碍物膨胀半径，即在障碍物外围增加的安全距离
+inflation_radius: 0.4
+
+# 代价递减因子，越高，离障碍物越远代价越小
+cost_scaling_factor: 3.0
+
+# 地图类型
+map_type: costmap
+
+# 传感器配置
+# observation_sources定义了用于更新代价地图的传感器信息
+observation_sources: laser_scan_sensor
+
+# 为上面定义的每个传感器源进行详细配置
+laser_scan_sensor: {
+  sensor_frame: base_laser_link,    # 传感器坐标系名称 (!!需要修改!!)
+  data_type: LaserScan,             # 传感器数据类型
+  topic: /scan,                     # 传感器发布的话题 (!!需要修改!!)
+  marking: true,                    # 是否用传感器数据标记障碍物
+  clearing: true,                   # 是否用传感器数据清除障碍物
+  max_obstacle_height: 2.0,         # 障碍物的最大高度（米），高于此高度的将被忽略
+  min_obstacle_height: 0.08         # 障碍物的最小高度（米），低于此高度的将被忽略
+}

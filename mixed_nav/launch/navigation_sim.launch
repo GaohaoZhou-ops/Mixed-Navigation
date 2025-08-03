@@ -1,0 +1,31 @@
+<launch>
+      <arg name="map_file" default="$(find mixed_nav)/resources/2d_room_zheng.yaml"/>
+
+      <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+      
+      <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
+            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
+            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find mixed_nav)/config/local_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mixed_nav)/config/global_costmap_params.yaml" command="load" />
+            <rosparam file="$(find mixed_nav)/config/dwa_local_planner_params.yaml" command="load" />
+            
+            <param name="base_global_planner" value="navfn/NavfnROS" />
+            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+      </node>
+
+      <node pkg="rviz" type="rviz" name="nav_rviz" args="-d $(find mixed_nav)/rviz/nav_rviz.rviz" />
+
+      <node pkg="mixed_nav" type="simulation.py" name="simple_robot_simulator" output="screen">
+            <param name="odom_frame_id" value="map" />
+            <param name="base_frame_id" value="base_link" />
+            <param name="publish_rate" value="50" />
+      </node>
+      
+      <!-- debug tf tree -->
+      <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_base_link_static" 
+            args="0 0 0 0 0 0 odom base_link" />
+      <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser_static" 
+            args="0 0 0 0 0 0 base_link camera_link" />
+
+</launch>

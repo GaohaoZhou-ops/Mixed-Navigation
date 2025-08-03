@@ -1,0 +1,36 @@
+# DWA局部路径规划器参数
+DWAPlannerROS:
+  # 机器人运动学参数 (!!需要根据您的机器人进行修改!!)
+  acc_lim_x: 2.5      # x轴加速度限制
+  acc_lim_y: 0.0      # y轴加速度限制 (对于差分驱动机器人为0)
+  acc_lim_theta: 3.2  # 角加速度限制
+  
+  max_vel_x: 0.65     # x轴最大速度
+  min_vel_x: 0.0      # x轴最小速度 (如果为负，允许后退)
+  
+  max_vel_y: 0.0      # y轴最大速度 (对于差分驱动机器人为0)
+  min_vel_y: 0.0      # y轴最小速度
+  
+  max_trans_vel: 0.65 # 最大平移速度
+  min_trans_vel: 0.1  # 最小平移速度
+  
+  max_rot_vel: 1.0    # 最大旋转速度
+  min_rot_vel: 0.4    # 最小旋转速度
+
+  # 目标容忍度 (到达目标点多近就算成功)
+  xy_goal_tolerance: 0.15 # 15厘米
+  yaw_goal_tolerance: 0.1 # 约6度
+
+  # 前向仿真时间 (仿真未来多少秒的轨迹)
+  sim_time: 1.7
+  
+  # 路径跟踪参数
+  # gdist_scale: 路径与目标点的距离的权重
+  # pdist_scale: 路径与全局路径的贴近程度的权重
+  # occdist_scale: 路径与障碍物的距离的权重
+  pdist_scale: 32.0
+  gdist_scale: 24.0
+  occdist_scale: 0.04
+
+  # 是否只在到达目标点附近时才对齐最终朝向
+  penalize_negative_x: true
