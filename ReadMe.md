@@ -45,7 +45,7 @@ $ pip install numpy open3d PyYAML Pillow
 
 ```bash
 $ cd nav_ws/src
-$ git clone git@github.com:GaohaoZhou-ops/Mixed-Navigation.git
+$ git clone --recursive git@github.com:GaohaoZhou-ops/Mixed-Navigation.git
 ```
 
 使用下面的命令编译源码：
