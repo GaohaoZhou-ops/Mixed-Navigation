@@ -84,18 +84,18 @@ $ tree -L 2
 ```bash
 $ cd src/mixed_nav
 $ tree 
-
 .
 ├── CMakeLists.txt
 ├── config
-│   ├── costmap_common_params.yaml  
+│   ├── costmap_common_params.yaml
 │   ├── dwa_local_planner_params.yaml
 │   ├── global_costmap_params.yaml
 │   └── local_costmap_params.yaml
 ├── include
 │   └── mixed_nav
 ├── launch
-│   └── navigation.launch
+│   ├── navigation_sim.launch
+│   └── view_map.launch
 ├── package.xml
 ├── resources
 │   ├── 2d_room_zheng.pgm
@@ -103,7 +103,8 @@ $ tree
 │   ├── images
 │   └── room_zheng.ply      # 下载好的点云地图
 ├── rviz
-│   └── nav_rviz.rviz
+│   ├── nav_rviz.rviz
+│   └── view_map.rviz
 ├── scripts
 │   ├── pc2pgm.py
 │   └── simulation.py
