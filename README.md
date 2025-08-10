@@ -35,7 +35,7 @@ $ sudo apt-get install ros-noetic-navigation ros-noetic-tf2-sensor-msgs libopenv
 ```bash
 $ conda create -n mapconv python=3.10
 $ conda activate mapconv
-$ pip install numpy open3d PyYAML Pillow
+$ pip install numpy open3d PyYAML Pillow commentjson
 ```
 
 ---
@@ -221,16 +221,23 @@ $ roslaunch mixed_nav view_map.launch
 
 ![view_map](mixed_nav/resources/images/view_map.png)
 
-----
-# Step5. 启动仿真导航
 
-使用下面的命令启动仿真导航：
+---
+# Step5. 编辑导航点
+
+你可以在 `waypoints` 文件夹中修改 `nav_points.json` 这个文件用来记录导航点，导航点包含了 **xyz空间坐标** 与 **四元数**，且有 **组**
+ 的概念，在编写完成后使用下面的命令可以在 rviz 中查看这些导航点构成的可视化路径：
 
 ```bash
 $ cd nav_ws
 $ source devel/setup.bash 
-$ roslaunch mixed_nav navigation_sim.launch
+$ roslaunch mixed_nav visualize_path.launch
 ```
+
+![path_points](mixed_nav/resources/images/path_points.png)
+
+----
+# Step6. 启动仿真导航
 
 如果你已经安装好 RealSense SDK 那么可以顺便启动相机，这样能够将点云映射到局部代价地图上以实现更动态的导航避障，如果你目前没有连接相机也不会影响仿真：
 
@@ -246,11 +253,46 @@ $ roslaunch realsense2_camera rs_rgbd.launch
 
 ![nav_sim](mixed_nav/resources/images/nav_sim_initpose.png)
 
-再提供一个 `2D Nav Goal` 可以模拟导航目的地：
+使用下面的命令启动仿真导航：
+
+```bash
+$ cd nav_ws
+$ source devel/setup.bash 
+$ roslaunch mixed_nav navigation_sim.launch
+```
+
+## 功能一：自由路径导航
+
+在rviz中提供一个 `2D Nav Goal` 可以模拟自由导航到目的地：
 
 ![nav_sim](mixed_nav/resources/images/nav_sim_goal.png)
 
+## 功能二：逐点导航
+
+该功能需要确保 `waypoints` 文件夹中的导航路径文件存在且内容无误，使用下面的命令朝 `/path_navigation/goal` 话题发布一个路径组名 `path_group_name` 以及死区半径 `dead_zone_radius` 可以让其自动沿着路径组 `path_beta` 进行逐点导航。本质是逐点发布导航点到 `/move_base_simple/goal` 话题中让 move_base 完成路径规划功能，期间实时监听 `base_link` 是否到达死区内，如果到达则发布下一个点
+
+```bash
+$ rostopic pub /path_navigation/goal mixed_nav/PathNavigationActionGoal "header:
+  seq: 0
+  stamp:
+    secs: 0
+    nsecs: 0
+  frame_id: ''
+goal_id:
+  stamp:
+    secs: 0
+    nsecs: 0
+  id: ''
+goal:
+  path_group_name: 'path_beta'
+  dead_zone_radius: 0.2" 
+```
+
+![track_points](mixed_nav/resources/images/track_points.png)
+
 ---
-# Step6. 使用真机导航
+# Step7. 使用真机导航
 
 【未完待续】
+
+

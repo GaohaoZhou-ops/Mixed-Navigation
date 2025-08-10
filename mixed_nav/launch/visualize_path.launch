@@ -1,0 +1,10 @@
+<launch>
+    <arg name="json_file" default="$(find mixed_nav)/waypoints/nav_points.json" />
+
+    <node pkg="mixed_nav" type="visualize_nav_paths.py" name="nav_path_visualizer" output="screen">
+        <param name="json_file_path" value="$(arg json_file)" />
+    </node>
+
+    <node pkg="rviz" type="rviz" name="nav_rviz" args="-d $(find mixed_nav)/rviz/path_points.rviz" />
+
+</launch>

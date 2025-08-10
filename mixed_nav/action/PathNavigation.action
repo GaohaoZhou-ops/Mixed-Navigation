@@ -1,0 +1,10 @@
+# Goal: 要执行的路径组名和死区半径
+string path_group_name
+float32 dead_zone_radius
+---
+# Result: 任务是否成功以及一条可选信息
+bool success
+string message
+---
+# Feedback: 当前正在执行的任务信息
+string current_waypoint_info
