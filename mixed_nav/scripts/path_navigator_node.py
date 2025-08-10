@@ -40,7 +40,7 @@ class PathNavigator:
         
         # 创建Action服务器
         self._action_server = actionlib.SimpleActionServer(
-            '/path_navigation', 
+            '/track_points', 
             PathNavigationAction, 
             execute_cb=self.execute_cb, 
             auto_start=False

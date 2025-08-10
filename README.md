@@ -269,10 +269,10 @@ $ roslaunch mixed_nav navigation_sim.launch
 
 ## 功能二：逐点导航
 
-该功能需要确保 `waypoints` 文件夹中的导航路径文件存在且内容无误，使用下面的命令朝 `/path_navigation/goal` 话题发布一个路径组名 `path_group_name` 以及死区半径 `dead_zone_radius` 可以让其自动沿着路径组 `path_beta` 进行逐点导航。本质是逐点发布导航点到 `/move_base_simple/goal` 话题中让 move_base 完成路径规划功能，期间实时监听 `base_link` 是否到达死区内，如果到达则发布下一个点
+该功能需要确保 `waypoints` 文件夹中的导航路径文件存在且内容无误，使用下面的命令朝 `/track_points/goal` 话题发布一个路径组名 `path_group_name` 以及死区半径 `dead_zone_radius` 可以让其自动沿着路径组 `path_beta` 进行逐点导航。本质是逐点发布导航点到 `/move_base_simple/goal` 话题中让 move_base 完成路径规划功能，期间实时监听 `base_link` 是否到达死区内，如果到达则发布下一个点
 
 ```bash
-$ rostopic pub /path_navigation/goal mixed_nav/PathNavigationActionGoal "header:
+$ rostopic pub /track_points/goal mixed_nav/PathNavigationActionGoal "header:
   seq: 0
   stamp:
     secs: 0
