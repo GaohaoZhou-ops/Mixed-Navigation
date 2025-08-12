@@ -6,7 +6,6 @@ Panels:
       Expanded:
         - /Global Options1
         - /Status1
-        - /LocalCostMap1
       Splitter Ratio: 0.5147058963775635
     Tree Height: 475
   - Class: rviz/Selection
@@ -97,7 +96,7 @@ Visualization Manager:
       Unreliable: false
       Use Timestamp: false
       Value: true
-    - Alpha: 0.5
+    - Alpha: 0.20000000298023224
       Class: rviz/Map
       Color Scheme: map
       Draw Behind: false
@@ -188,8 +187,8 @@ Visualization Manager:
     - Alpha: 1
       Autocompute Intensity Bounds: true
       Autocompute Value Bounds:
-        Max Value: 2.9086217880249023
-        Min Value: -2.288440704345703
+        Max Value: 2.4086217880249023
+        Min Value: -2.788440704345703
         Value: true
       Axis: Z
       Channel Name: intensity
@@ -241,7 +240,7 @@ Visualization Manager:
   Views:
     Current:
       Class: rviz/Orbit
-      Distance: 24.658039093017578
+      Distance: 21.897153854370117
       Enable Stereo Rendering:
         Stereo Eye Separation: 0.05999999865889549
         Stereo Focal Distance: 1
@@ -249,17 +248,17 @@ Visualization Manager:
         Value: false
       Field of View: 0.7853981852531433
       Focal Point:
-        X: 8.841583251953125
-        Y: 4.482791423797607
-        Z: -1.3785589933395386
+        X: 7.190433979034424
+        Y: 4.619763374328613
+        Z: -2.4504799842834473
       Focal Shape Fixed Size: true
       Focal Shape Size: 0.05000000074505806
       Invert Z Axis: false
       Name: Current View
       Near Clip Distance: 0.009999999776482582
-      Pitch: 0.6997971534729004
+      Pitch: 0.5047972202301025
       Target Frame: <Fixed Frame>
-      Yaw: 4.000394344329834
+      Yaw: 3.875394105911255
     Saved: ~
 Window Geometry:
   Displays:

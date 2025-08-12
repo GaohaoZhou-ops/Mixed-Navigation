@@ -1,6 +1,6 @@
 local_costmap:
   # 参考坐标系
-  global_frame: odom
+  global_frame: map
   # 机器人基座坐标系
   robot_base_frame: base_link
 

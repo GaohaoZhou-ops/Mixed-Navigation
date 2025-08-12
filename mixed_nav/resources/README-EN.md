@@ -193,10 +193,10 @@ $ cd nav_ws/src/mixed_nav
 $ conda activate mapconv
 ```
 
-Then use the `scripts/pc2pgm.py` script with optional parameters to convert the point cloud map file into a 2D raster map. Assuming your map is named `room_zheng.ply`, the following command will compress all points in the point cloud file with heights within the range $[0.1,0.8]$ into a 2D map and save it to the `resources` folder:
+Then use the `scripts/pc2pgm.py` script with optional parameters to convert the point cloud map file into a 2D raster map. Assuming your map is named `room_zheng.ply`, the following command will compress all points in the point cloud file with heights within the range $[0.1,0.8]$ into a 2D map and save it to the `resources/floors` folder:
 
 ```bash
-$ python scripts/pc2pgm.py resources/room_zheng.ply --min_z 0.1 --max_z 0.8
+$ python scripts/pc2pgm.py resources/room_zheng.ply  --floor_name floor0 --min_z 0.1 --max_z 0.8
 ```
 
 An example of a successful run is as follows:
@@ -299,6 +299,16 @@ dead_zone_radius: 0.2"
 ![track_points](images/track_points.png)
 
 ---
-# Step 7. Using Real Device Navigation
+# Step 7. Switch Maps
 
-[To be continued]
+If you want to use a different altitude or floor as the navigation map, use the following command to switch maps. After a successful switch, the corresponding map point cloud file will be modified:
+
+```bash
+$ cd nav_ws
+$ source devel/setup.bash
+$ rosservice call /switch_floor "floor_name": 'floor0'
+```
+
+|floor0|floor1|floor3|
+|--|--|---|
+|![floor0](images/floor0.png)|![floor1](images/floor1.png)|![floor3](images/floor3.png)|

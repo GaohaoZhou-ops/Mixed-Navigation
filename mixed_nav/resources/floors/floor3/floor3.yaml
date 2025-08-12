@@ -1,0 +1,9 @@
+free_thresh: 0.196
+image: floor3.pgm
+negate: 0
+occupied_thresh: 0.65
+origin:
+- -0.33904600143432617
+- -0.5790390372276306
+- 0.0
+resolution: 0.05

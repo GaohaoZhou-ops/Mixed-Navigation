@@ -1,0 +1,6 @@
+# Request
+string path_key     # "floor0" or "floor1"
+---
+# Response
+bool success
+string message

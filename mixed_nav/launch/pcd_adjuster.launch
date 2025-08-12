@@ -1,0 +1,11 @@
+<launch>
+    <arg name="pcd_file" default="/home/orin/Desktop/nav_ws/room_zheng.ply" />
+
+    <node pkg="mixed_nav" type="pcd_map_publisher.py" name="pcd_z_adjuster_node" output="screen">
+        <param name="pcd_file_path" value="$(arg pcd_file)" />
+        <param name="frame_id" value="map" />
+        <param name="topic_name" value="/pointcloud_map" />
+        <param name="initial_z_offset" value="0.0" /> <param name="leaf_size" value="0.1" />
+        <param name="max_points_before_downsample" value="2000000" />
+    </node>
+</launch>

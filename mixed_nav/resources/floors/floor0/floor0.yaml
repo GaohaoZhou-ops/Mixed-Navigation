@@ -1,5 +1,5 @@
 free_thresh: 0.196
-image: 2d_room_zheng.pgm
+image: floor0.pgm
 negate: 0
 occupied_thresh: 0.65
 origin:

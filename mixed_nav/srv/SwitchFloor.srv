@@ -1,0 +1,6 @@
+# Request
+string floor_name
+---
+# Response
+bool success
+string message

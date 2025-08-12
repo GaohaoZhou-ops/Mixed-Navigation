@@ -1,0 +1,6 @@
+# Request
+float64 z_value     # target z value
+---
+# Response
+bool success
+string message

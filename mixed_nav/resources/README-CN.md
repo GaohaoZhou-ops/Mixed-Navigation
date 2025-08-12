@@ -193,10 +193,10 @@ $ cd nav_ws/src/mixed_nav
 $ conda activate mapconv
 ```
 
-然后使用脚本 `scripts/pc2pgm.py` 并结合可选参数将点云地图文件转换成 2D 栅格地图，假设你的地图名为 `room_zheng.ply`，下面命令执行后会将点云文件中高度在 $[0.1,0.8]$ 范围内的点云压缩成一个 2D 地图，并保存到 `resources` 文件夹下：
+然后使用脚本 `scripts/tools/pc2pgm.py` 并结合可选参数将点云地图文件转换成 2D 栅格地图，假设你的地图名为 `room_zheng.ply`，下面命令执行后会将点云文件中高度在 $[0.1,0.8]$ 范围内的点云压缩成一个 2D 地图，并保存到 `resources/floors` 文件夹下：
 
 ```bash
-$ python scripts/pc2pgm.py resources/room_zheng.ply --min_z 0.1 --max_z 0.8
+$ python scripts/pc2pgm.py resources/room_zheng.ply  --floor_name floor0 --min_z 0.1 --max_z 0.8
 ```
 
 成功运行的输入示例如下：
@@ -301,8 +301,16 @@ goal:
 ![track_points](images/track_points.png)
 
 ---
-# Step7. 使用真机导航
+# Step7. 切换地图
 
-【未完待续】
+如果你想要使用不同高度或楼层作为导航地图，使用下面的命令可以进行地图切换，切换成功后对应的地图点云文件也会同步修改：
 
+```bash
+$ cd nav_ws
+$ source devel/setup.bash
+$ rosservice call /switch_floor "floor_name": 'floor0'
+```
 
+|floor0|floor1|floor3|
+|--|--|---|
+|![floor0](images/floor0.png)|![floor1](images/floor1.png)|![floor3](images/floor3.png)|
