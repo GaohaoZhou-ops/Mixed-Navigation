@@ -8,7 +8,6 @@ import tf
 import math
 
 from geometry_msgs.msg import PoseStamped
-# 导入刚刚编译生成的Action消息文件
 from mixed_nav.msg import PathNavigationAction, PathNavigationGoal, PathNavigationResult, PathNavigationFeedback
 
 def load_nav_points(file_path):
@@ -24,7 +23,6 @@ def load_nav_points(file_path):
 class PathNavigator:
     def __init__(self):
         rospy.init_node('path_navigator_node')
-
         # 从参数服务器获取JSON文件路径
         json_file_path = rospy.get_param('~json_file_path', 'nav_points.json')
         self.nav_point_groups = load_nav_points(json_file_path)
@@ -58,7 +56,6 @@ class PathNavigator:
             rospy.logerr("Path group '%s' not found in JSON file.", goal.path_group_name)
             self._action_server.set_aborted(result=PathNavigationResult(success=False, message="Path group not found."))
             return
-
         waypoints = self.nav_point_groups[goal.path_group_name]
         rospy.loginfo("Executing path with %d waypoints.", len(waypoints))
 

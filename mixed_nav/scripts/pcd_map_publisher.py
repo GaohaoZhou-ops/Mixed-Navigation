@@ -11,7 +11,6 @@ from std_msgs.msg import Header
 def main():
     # 1. 初始化ROS节点
     rospy.init_node('pcd_map_publisher_pynt', anonymous=True)
-
     # 2. 从私有参数服务器获取参数
     pcd_file_path = rospy.get_param('~pcd_file_path', '')
     frame_id = rospy.get_param('~frame_id', 'map')
@@ -28,7 +27,6 @@ def main():
 
     # 3. 创建点云发布者 (锁存话题)
     pub = rospy.Publisher(topic_name, PointCloud2, queue_size=1, latch=True)
-
     # 4. 使用 pyntcloud 加载PCD文件
     try:
         cloud = PyntCloud.from_file(pcd_file_path)
@@ -47,12 +45,9 @@ def main():
         # 使用VoxelGrid的质心进行采样，效果等同于下采样
         # 首先，需要为点云添加一个VoxelGrid结构
         voxelgrid_id = cloud.add_structure("voxelgrid", size_x=leaf_size, size_y=leaf_size, size_z=leaf_size)
-        
         # 然后，从该结构中采样质心点
         sampled_cloud_df = cloud.get_sample("voxelgrid_centroids", voxelgrid_id=voxelgrid_id)
-        
         rospy.loginfo("Downsampled to %d points.", len(sampled_cloud_df))
-        
         # 从DataFrame中提取 x, y, z 列并转换为NumPy数组
         points_to_publish_np = sampled_cloud_df[['x', 'y', 'z']].values
     else:

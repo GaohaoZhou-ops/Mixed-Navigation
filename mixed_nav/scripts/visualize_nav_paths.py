@@ -80,15 +80,11 @@ def main():
         marker_array.markers.append(path_marker)
         marker_id_counter += 1
 
-    # 持续发布以便RViz可以接收到
     rate = rospy.Rate(0.5)
     while not rospy.is_shutdown():
-        # 更新时间戳
         for marker in marker_array.markers:
             marker.header.stamp = rospy.Time.now()
-        
         marker_pub.publish(marker_array)
-        # rospy.loginfo("Published %d navigation path(s) to RViz.", len(marker_array.markers))
         rate.sleep()
 
 if __name__ == '__main__':

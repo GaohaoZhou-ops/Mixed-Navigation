@@ -16,7 +16,6 @@ def pointcloud_to_occupancy_grid(pcd_file, output_map_name, resolution, min_z, m
     if not os.path.exists(pcd_file):
         print(f"错误: 输入文件不存在 -> {pcd_file}")
         return
-        
     try:
         pcd = o3d.io.read_point_cloud(pcd_file)
         if not pcd.has_points():
@@ -98,8 +97,6 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description='将PCD或PLY点云文件转换为ROS栅格地图。')
     
     parser.add_argument('input_file', type=str, help='输入的点云文件路径 (.pcd or .ply)')
-    
-    # 新的 --map_name 参数，替代了之前的 -o/--output
     parser.add_argument(
         '--map_name', 
         type=str, 
