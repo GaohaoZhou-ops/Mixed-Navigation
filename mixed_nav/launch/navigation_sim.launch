@@ -1,5 +1,4 @@
 <launch>
-      <!-- <arg name="json_file" default="$(find mixed_nav)/waypoints/nav_points.json" /> -->
       <arg name="map_frame" default="map" />
       <arg name="base_frame" default="base_link" />
       <arg name="odom_frame" default="odom" />
@@ -10,7 +9,6 @@
             <arg name="floor_name" default="$(arg floor_name)" />
             <arg name="launch_rviz" value="false" />
             <arg name="launch_pcd" value="true" />
-            <!-- <arg name="json_file" value="$(arg json_file)" /> -->
             <arg name="map_frame" value="$(arg map_frame)" />
       </include>
 

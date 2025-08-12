@@ -2,7 +2,6 @@
     <arg name="floor_name" default="floor1" doc="Default 2D map floor name" />
     <arg name="launch_rviz" default="true" doc="Controls whether to launch RViz from this file"/>
     <arg name="launch_pcd" default="true" doc="Set to 'false' to disable the 3D point cloud publisher"/>
-    <!-- <arg name="json_file" default="waypoints.json" /> -->
     <arg name="pcd_file" default="room_zheng.ply" />
     <arg name="map_frame" default="map" />
 
