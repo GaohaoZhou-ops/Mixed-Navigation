@@ -140,8 +140,9 @@ $ tree -L 2
 
 ```bash
 $ cd src/mixed_nav
-$ tree 
 .
+├── action
+│   └── PathNavigation.action
 ├── CMakeLists.txt
 ├── config
 │   ├── costmap_common_params.yaml
@@ -149,23 +150,27 @@ $ tree
 │   ├── global_costmap_params.yaml
 │   └── local_costmap_params.yaml
 ├── include
-│   └── mixed_nav
 ├── launch
-│   ├── navigation_sim.launch
-│   └── view_map.launch
+│   ├── map_server.launch
+│   └── navigation_sim.launch
 ├── package.xml
 ├── resources
 │   ├── 2d_room_zheng.pgm
 │   ├── 2d_room_zheng.yaml
-│   ├── images
-│   └── room_zheng.ply      # 下载好的点云地图
+│   ├── room_zheng.ply      # 下载好的点云文件
+│   └── images
 ├── rviz
 │   ├── nav_rviz.rviz
+│   ├── path_points.rviz
 │   └── view_map.rviz
 ├── scripts
+│   ├── path_navigator_node.py
 │   ├── pc2pgm.py
-│   └── simulation.py
-└── src
+│   ├── pcd_map_publisher.py
+│   ├── simulation.py
+│   └── visualize_nav_paths.py
+└── waypoints
+    └── nav_points.json
 ```
 
 ## 使用自己现成的地图文件
