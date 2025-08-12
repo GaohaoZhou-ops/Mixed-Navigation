@@ -136,41 +136,25 @@ $ tree -L 2
 
 ```
 
-Where `mixed_nav` The structure in the package looks like this:
+Where `mixed_nav/resources/floors` The structure in the package looks like this:
 
 ```bash
-$ cd src/mixed_nav
+$ cd src/mixed_nav/resources/floors
 .
-├── action
-│ └── PathNavigation.action
-├── CMakeLists.txt
-├── config
-│ ├── costmap_common_params.yaml
-│ ├── dwa_local_planner_params.yaml
-│ ├── global_costmap_params.yaml
-│ └── local_costmap_params.yaml
-├── include
-├── launch
-│ ├── map_server.launch
-│ └── navigation_sim.launch
-├── package.xml
-├── resources
-│ ├── 2d_room_zheng.pgm
-│ ├── 2d_room_zheng.yaml
-│ ├── room_zheng.ply # Download the point cloud file
-│ └── images
-├── rviz
-│ ├── nav_rviz.rviz
-│ ├── path_points.rviz
-│ └── view_map.rviz
-├── scripts
-│ ├── path_navigator_node.py
-│ ├── pc2pgm.py
-│ ├── pcd_map_publisher.py
-│ ├── simulation.py
-│ └── visualize_nav_paths.py
-└── waypoints
-└── nav_points.json
+├── floor0
+│   ├── floor0.pgm
+│   ├── floor0.yaml
+│   └── waypoints.json
+├── floor1
+│   ├── floor1.pgm
+│   ├── floor1.yaml
+│   └── waypoints.json
+├── floor3
+│   ├── floor3.pgm
+│   ├── floor3.yaml
+│   └── waypoints.json
+├── room_zheng.ply          # download point cloud map file
+└── z_config.json
 ```
 
 ## Using Your Own Existing Map File

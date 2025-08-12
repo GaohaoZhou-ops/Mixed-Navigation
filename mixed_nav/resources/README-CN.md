@@ -136,41 +136,26 @@ $ tree -L 2
 
 ```
 
-其中 `mixed_nav` 包中的结构如下所示：
+其中 `mixed_nav/resources/floors` 包中的结构如下所示：
 
 ```bash
-$ cd src/mixed_nav
+$ cd src/mixed_nav/resources/floors
 .
-├── action
-│   └── PathNavigation.action
-├── CMakeLists.txt
-├── config
-│   ├── costmap_common_params.yaml
-│   ├── dwa_local_planner_params.yaml
-│   ├── global_costmap_params.yaml
-│   └── local_costmap_params.yaml
-├── include
-├── launch
-│   ├── map_server.launch
-│   └── navigation_sim.launch
-├── package.xml
-├── resources
-│   ├── 2d_room_zheng.pgm
-│   ├── 2d_room_zheng.yaml
-│   ├── room_zheng.ply      # 下载好的点云文件
-│   └── images
-├── rviz
-│   ├── nav_rviz.rviz
-│   ├── path_points.rviz
-│   └── view_map.rviz
-├── scripts
-│   ├── path_navigator_node.py
-│   ├── pc2pgm.py
-│   ├── pcd_map_publisher.py
-│   ├── simulation.py
-│   └── visualize_nav_paths.py
-└── waypoints
-    └── nav_points.json
+├── floor0
+│   ├── floor0.pgm
+│   ├── floor0.yaml
+│   └── waypoints.json
+├── floor1
+│   ├── floor1.pgm
+│   ├── floor1.yaml
+│   └── waypoints.json
+├── floor3
+│   ├── floor3.pgm
+│   ├── floor3.yaml
+│   └── waypoints.json
+├── room_zheng.ply      # 下载好的点云地图文件
+└── z_config.json
+
 ```
 
 ## 使用自己现成的地图文件
