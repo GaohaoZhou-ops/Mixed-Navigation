@@ -45,16 +45,20 @@ $ pip install numpy open3d PyYAML Pillow commentjson
 
 ```bash
 $ cd nav_ws/src
-$ git clone --recursive git@github.com:GaohaoZhou-ops/Mixed-Navigation.git
+$ git clone https://github.com/GaohaoZhou-ops/Mixed-Navigation.git
 ```
 
 因为这里没有对另外两个包中的源码进行修改，所以在拉取后还需要切换一下分支：
 
 ```bash
-$ cd nav_ws/src/realsense-ros
+$ cd nav_ws/src/
+$ git clone https://github.com/IntelRealSense/realsense-ros.git
+$ cd realsense-ros
 $ git checkout ros1-legacy
 
-$ cd nav_ws/src/spatio_temporal_voxel_layer
+$ cd nav_ws/src/
+$ git clone https://github.com/SteveMacenski/spatio_temporal_voxel_layer.git
+$ cd spatio_temporal_voxel_layer
 $ git checkout noetic-devel
 ```
 
