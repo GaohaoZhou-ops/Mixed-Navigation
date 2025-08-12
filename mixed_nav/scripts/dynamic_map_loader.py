@@ -30,7 +30,7 @@ class DynamicMapLoader:
         # 3. 创建服务
         self.switch_map_service = rospy.Service('/switch_2d_map', Switch2DMap, self.handle_switch_map)
         
-        # 4. (可选) 加载一个初始地图
+        # 4. 加载一个初始地图
         initial_map = rospy.get_param('~initial_map', None)
         if initial_map:
             self.load_and_publish_map(initial_map)

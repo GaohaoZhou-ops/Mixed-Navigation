@@ -95,9 +95,6 @@ class PathVisualizer:
             marker_id_counter += 1
         
         self.current_marker_array = marker_array
-        
-        # self.publish_markers() # <--- !!! 这就是导致问题的代码行，将其删除或注释掉 !!!
-        
         return True
 
     def publish_markers(self, event=None):
@@ -110,7 +107,6 @@ class PathVisualizer:
                 marker.header.stamp = rospy.Time.now()
             self.marker_pub.publish(self.current_marker_array)
 
-    # ... (其他辅助函数 _clear_all_markers, _load_nav_points 等保持不变) ...
     def _clear_all_markers(self):
         """
         发布一个特殊的Marker来清除RViz中之前所有的Markers
@@ -171,7 +167,7 @@ def main():
     rospy.init_node('path_visualizer_switcher')
     try:
         visualizer = PathVisualizer()
-        rospy.spin() # 保持节点运行以响应服务调用和定时器
+        rospy.spin()
     except rospy.ROSInterruptException:
         pass
 

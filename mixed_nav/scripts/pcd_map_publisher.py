@@ -11,8 +11,6 @@ from sensor_msgs.msg import PointCloud2
 from sensor_msgs import point_cloud2
 from std_msgs.msg import Header
 
-# 导入自定义的服务类型。
-# 注意：你需要先创建这个服务文件。请参考下面的 "如何使用" 部分。
 from mixed_nav.srv import AdjustPcdZ, AdjustPcdZResponse
 
 class PcdZAdjuster:
@@ -113,7 +111,6 @@ class PcdZAdjuster:
 
         # 2. 保存调整后的点云到临时文件
         if save_file:
-            # 生成临时文件名 (e.g., /path/to/room.ply -> /path/to/room_tmp.ply)
             path_without_ext, ext = os.path.splitext(self.pcd_file_path)
             temp_file_path = f"{path_without_ext}_tmp{ext}"
             
@@ -130,7 +127,6 @@ def main():
     rospy.init_node('pcd_z_adjuster_node', anonymous=True)
     try:
         adjuster = PcdZAdjuster()
-        # rospy.spin()会阻塞主线程，直到节点被关闭，以确保服务能持续被调用
         rospy.spin()
     except rospy.ROSInterruptException:
         pass

@@ -33,7 +33,6 @@ class PathNavigator:
 
         # TF监听器，用于获取机器人位置
         self.tf_listener = tf.TransformListener()
-        # 目标点发布者
         self.goal_pub = rospy.Publisher('/move_base_simple/goal', PoseStamped, queue_size=1)
         
         # 创建Action服务器

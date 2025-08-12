@@ -19,7 +19,6 @@ class FloorSwitcher:
         # 1. 找到包含资源文件的包路径 (我们假设是 mixed_nav 包)
         try:
             rospack = rospkg.RosPack()
-            # 替换 'mixed_nav' 为您实际存放资源的包名
             package_path = rospack.get_path('mixed_nav') 
             self.config_path = os.path.join(package_path, 'resources', 'floors', 'z_config.json')
             rospy.loginfo(f"z_config.json 路径已设定: {self.config_path}")
@@ -66,7 +65,7 @@ class FloorSwitcher:
         rospy.loginfo(f"收到切换到楼层 '{target_floor}' 的请求...")
 
         try:
-            # --- 步骤 1: 读取配置 (代码不变) ---
+            # --- 步骤 1: 读取配置 ---
             with open(self.config_path, 'r') as f:
                 config_data = json.load(f)
             if target_floor not in config_data:
@@ -76,13 +75,13 @@ class FloorSwitcher:
                 raise ValueError(f"楼层 '{target_floor}' 配置中缺少 'z_min'。")
             rospy.loginfo(f"找到 '{target_floor}' 的 z_min = {z_offset}。")
 
-            # --- 步骤 2: 调整3D点云地图 (代码不变) ---
+            # --- 步骤 2: 调整3D点云地图 ---
             pcd_response = self.adjust_pcd_client(z_value=z_offset)
             if not pcd_response.success:
                 raise RuntimeError(f"调用 /adjust_pcd_z_value 失败: {pcd_response.message}")
             rospy.loginfo("3D点云地图Z轴调整成功。")
 
-            # --- 步骤 3: 切换导航路径 (代码不变) ---
+            # --- 步骤 3: 切换导航路径 ---
             path_response = self.switch_path_client(path_key=target_floor)
             if not path_response.success:
                 raise RuntimeError(f"调用 /switch_path 失败: {path_response.message}")
