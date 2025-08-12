@@ -1,7 +1,0 @@
-<launch>
-
-    <node pkg="map_server" type="map_server" name="view_map" args="$(find mixed_nav)/resources/2d_room_zheng.yaml" />
-    
-    <node pkg="rviz" type="rviz" name="nav_rviz" args="-d $(find mixed_nav)/rviz/view_map.rviz" />
-
-</launch>

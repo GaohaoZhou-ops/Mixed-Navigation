@@ -1,0 +1,27 @@
+<launch>
+    <arg name="launch_rviz" default="true" doc="Controls whether to launch RViz from this file"/>
+    <arg name="launch_pcd" default="true" doc="Set to 'false' to disable the 3D point cloud publisher"/>
+    <arg name="json_file" default="$(find mixed_nav)/waypoints/nav_points.json" />
+    <arg name="pcd_file" default="$(find mixed_nav)/resources/room_zheng.ply" />
+    <arg name="2d_map_file" default="$(find mixed_nav)/resources/2d_room_zheng.yaml" />
+    <arg name="map_frame" default="map" />
+
+    <!-- 2D nav map server-->
+    <node pkg="map_server" type="map_server" name="view_map" args="$(arg 2d_map_file)" />
+    <node pkg="rviz" type="rviz" name="map_rviz" args="-d $(find mixed_nav)/rviz/view_map.rviz" if="$(arg launch_rviz)" />
+
+    <!-- 3D map server-->
+    <node pkg="mixed_nav" type="pcd_map_publisher.py" name="pcd_map_publisher_py" output="screen" if="$(arg launch_pcd)">
+        <param name="pcd_file_path" value="$(arg pcd_file)" />
+        <param name="frame_id" value="$(arg map_frame)" />
+        <param name="topic_name" value="/pointcloud_map" />
+        <param name="max_points_before_downsample" value="1500000" />
+        <param name="leaf_size" value="0.1" />
+    </node>
+
+    <!-- path display -->
+    <node pkg="mixed_nav" type="visualize_nav_paths.py" name="nav_path_visualizer" output="screen">
+        <param name="json_file_path" value="$(arg json_file)" />
+    </node>
+
+</launch>

@@ -1,12 +1,12 @@
 local_costmap:
   # 参考坐标系
-  global_frame: map # odom
+  global_frame: odom
   # 机器人基座坐标系
   robot_base_frame: base_link
 
   # 更新频率
   update_frequency: 5.0
-  publish_frequency: 0.5
+  publish_frequency: 1.0
 
   # 局部地图不使用预先生成的静态地图
   static_map: false

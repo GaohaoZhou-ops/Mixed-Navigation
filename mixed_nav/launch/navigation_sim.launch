@@ -1,7 +1,18 @@
 <launch>
+      <arg name="json_file" default="$(find mixed_nav)/waypoints/nav_points.json" />
+      <arg name="map_frame" default="map" />
+      <arg name="base_frame" default="base_link" />
+      <arg name="odom_frame" default="odom" />
+
       <!-- map server -->
-      <arg name="map_file" default="$(find mixed_nav)/resources/2d_room_zheng.yaml"/>
-      <node name="map_server" pkg="map_server" type="map_server" args="$(arg map_file)" />
+      <include file="$(find mixed_nav)/launch/map_server.launch">
+            <arg name="launch_rviz" value="false" />
+            <arg name="launch_pcd" value="true" />
+            <arg name="json_file" value="$(arg json_file)" />
+            <arg name="map_frame" value="$(arg map_frame)" />
+      </include>
+
+      <!-- move_base -->
       <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
             <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
             <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
@@ -15,26 +26,22 @@
       <!-- move base rviz -->
       <node pkg="rviz" type="rviz" name="nav_rviz" args="-d $(find mixed_nav)/rviz/nav_rviz.rviz" />
       <node pkg="mixed_nav" type="simulation.py" name="simple_robot_simulator" output="screen">
-            <param name="odom_frame_id" value="map" />
-            <param name="base_frame_id" value="base_link" />
+            <param name="odom_frame_id" value="$(arg odom_frame)" />
+            <param name="base_frame_id" value="$(arg base_frame)" />
             <param name="publish_rate" value="50" />
       </node>
-      
-      <!-- display path -->
-      <arg name="json_file" default="$(find mixed_nav)/waypoints/nav_points.json" />
-      <node pkg="mixed_nav" type="visualize_nav_paths.py" name="nav_path_visualizer" output="screen">
-            <param name="json_file_path" value="$(arg json_file)" />
-      </node>
 
-      <!-- path nav -->
+      <!-- path nav node -->
       <node pkg="mixed_nav" type="path_navigator_node.py" name="path_navigator_node" output="screen">
             <param name="json_file_path" value="$(arg json_file)" />
       </node>
 
-      <!-- debug tf tree -->
+      <!-- simulator tf tree -->
+      <node pkg="tf2_ros" type="static_transform_publisher" name="map_to_odom_static" 
+            args="0 0 0 0 0 0 $(arg map_frame) $(arg odom_frame)" />
       <node pkg="tf2_ros" type="static_transform_publisher" name="odom_to_base_link_static" 
-            args="0 0 0 0 0 0 odom base_link" />
+            args="0 0 0 0 0 0 $(arg odom_frame) $(arg base_frame)" />
       <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser_static" 
-            args="0 0 0 0 0 0 base_link camera_link" />
+            args="0 0 0 0 0 0 $(arg base_frame) camera_link" />
 
 </launch>

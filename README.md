@@ -36,7 +36,8 @@ $ sudo apt-get install libopenvdb-dev
 ```bash
 $ conda create -n mapconv python=3.10
 $ conda activate mapconv
-$ pip install numpy open3d PyYAML Pillow commentjson
+$ pip install "numpy<2.0"
+$ pip install cython open3d PyYAML Pillow commentjson pyntcloud rospkg
 ```
 
 ---
@@ -218,28 +219,27 @@ rosrun map_server map_server /home/orin/Desktop/nav_ws/src/mixed_nav/resources/2
 
 【可选】使用下面的命令查看一下生成的点云地图是否满足你的需求，如果不满足可以通过修改 $Z$ 轴的高度范围重新生成：
 
+下面的命令会同时加载一份 3D 点云地图，由于点云文件通常比较大，因此可能会消耗一定时间，如果你不想加载点云文件可以修改 `map_server.launch` 文件中的参数配置取消显示：
+
 ```bash
 $ cd nav_ws
 $ source devel/setup.bash 
-$ roslaunch mixed_nav view_map.launch
+$ roslaunch mixed_nav map_server.launch
 ```
 
-![view_map](mixed_nav/resources/images/view_map.png)
+![map_server](mixed_nav/resources/images/map_server.png)
 
 
 ---
-# Step5. 编辑导航点
+# Step5. 设置导航点
 
-你可以在 `waypoints` 文件夹中修改 `nav_points.json` 这个文件用来记录导航点，导航点包含了 **xyz空间坐标** 与 **四元数**，且有 **组**
- 的概念，在编写完成后使用下面的命令可以在 rviz 中查看这些导航点构成的可视化路径：
+你可以在 `waypoints` 文件夹中修改 `nav_points.json` 这个文件用来记录导航点，导航点包含了 **xyz空间坐标** 与 **四元数**，且有 **组** 的概念，在编写完成后使用下面的命令可以在 rviz 中查看这些导航点构成的可视化路径：
 
 ```bash
 $ cd nav_ws
 $ source devel/setup.bash 
-$ roslaunch mixed_nav visualize_path.launch
+$ roslaunch mixed_nav map_server.launch
 ```
-
-![path_points](mixed_nav/resources/images/path_points.png)
 
 ----
 # Step6. 启动仿真导航
