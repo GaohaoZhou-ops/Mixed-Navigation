@@ -1,36 +1,65 @@
-# DWA局部路径规划器参数
+# =====================================================================
+#             DWA Local Planner for a LEGGED ROBOT (e.g., Robot Dog)
+# =====================================================================
+# 此配置文件专门为四足机器人（机械狗）优化。
+# 核心目标: 强制机器人在开始移动前，先原地旋转以对准全局路径方向。
+
 DWAPlannerROS:
-  # 机器人运动学参数 (!!需要根据您的机器人进行修改!!)
-  acc_lim_x: 2.5      # x轴加速度限制
-  acc_lim_y: 0.0      # y轴加速度限制 (对于差分驱动机器人为0)
-  acc_lim_theta: 3.2  # 角加速度限制
-  
-  max_vel_x: 0.65     # x轴最大速度
-  min_vel_x: 0.0      # x轴最小速度 (如果为负，允许后退)
-  
-  max_vel_y: 0.0      # y轴最大速度 (对于差分驱动机器人为0)
-  min_vel_y: 0.0      # y轴最小速度
-  
-  max_trans_vel: 0.65 # 最大平移速度
-  min_trans_vel: 0.1  # 最小平移速度
-  
-  max_rot_vel: 1.0    # 最大旋转速度
-  min_rot_vel: 0.4    # 最小旋转速度
 
-  # 目标容忍度 (到达目标点多近就算成功)
-  xy_goal_tolerance: 0.15 # 15厘米
-  yaw_goal_tolerance: 0.1 # 约6度
+# Robot Configuration Parameters - 必须根据你的机械狗进行修改！
+  # ---------------------------------------------------------------
+  # X轴速度 (前进/后退)
+  max_vel_x: 0.8        # [m/s] 机械狗前进的最大速度
+  min_vel_x: 0.0       # [m/s] 允许后退，后退速度通常比前进慢
 
-  # 前向仿真时间 (仿真未来多少秒的轨迹)
-  sim_time: 1.7
+  # Y轴速度 (机械狗不能横向平移)
+  max_vel_y: 0.0        # [m/s] 关键：设置为0，禁止横向移动
+  min_vel_y: 0.0        # [m/s] 关键：设置为0，禁止横向移动
+
+  # 总平移速度 (由于Y轴速度为0，这个值基本由X轴决定)
+  max_trans_vel: 0.8    # [m/s] 最大总平移速度 (等于 max_vel_x)
+  min_trans_vel: 0.1    # [m/s] 最小总平移速度，避免原地踏步
+
+  # 旋转速度
+  max_rot_vel: 2.0      # [rad/s] 最大角速度
+  min_rot_vel: 0.2      # [rad/s] 运动时的最小角速度
+  min_in_place_rot_vel: 0.6 # [rad/s] 关键：原地旋转时的最小角速度，确保该动作有效
+
+  # 加速度限制
+  acc_lim_x: 2.5        # [m/s^2]
+  acc_lim_y: 0.0        # [m/s^2] 关键：设置为0
+  acc_lim_theta: 4.0    # [rad/s^2]
+
+# Goal Tolerance Parameters
+# ---------------------------------------------------------------
+  yaw_goal_tolerance: 0.1     # [rad]
+  xy_goal_tolerance: 0.1      # [m]
+  latch_xy_goal_tolerance: true # 强烈建议为true，确保最终姿态对齐
+
+# Forward Simulation Parameters
+# ---------------------------------------------------------------
+  sim_time: 3.0             # [s] 模拟时间不宜过长，让机器人更关注眼前的路径
+  sim_granularity: 0.025    # [m]
   
-  # 路径跟踪参数
-  # gdist_scale: 路径与目标点的距离的权重
-  # pdist_scale: 路径与全局路径的贴近程度的权重
-  # occdist_scale: 路径与障碍物的距离的权重
-  pdist_scale: 32.0
-  gdist_scale: 24.0
-  occdist_scale: 0.04
+  # 速度采样 (Y轴采样为1，因为Y轴速度为0)
+  vx_samples: 8
+  vy_samples: 1             # 关键：设置为1
+  vtheta_samples: 20
 
-  # 是否只在到达目标点附近时才对齐最终朝向
-  penalize_negative_x: true
+# Trajectory Scoring Parameters - 轨迹评分参数 (核心调整区)
+# ---------------------------------------------------------------
+# 我们的策略是：极大地提高“贴近路径”的权重，降低“朝向目标”的权重。
+# 这会迫使规划器选择的轨迹必须是严格沿着全局路径的，任何“抄近道”的弧线轨迹都会因为偏离路径而获得一个极低的分数。
+
+  path_distance_bias: 90.0  # [关键] 极高的权重，强制机器人严格跟随全局路径。这是实现“先旋转”的核心。
+  goal_distance_bias: 10.0  # [关键] 较低的权重，减弱机器人“抄近道”的倾向。
+  occdist_scale: 0.02       # 正常的避障权重。如果机器人避障过于保守，可以适当减小此值。
+  
+  forward_point_distance: 0.325 # [m] 
+  stop_time_buffer: 0.2     # [s] 
+  scaling_speed: 0.25       # [m/s] 
+  scaling_factor: 0.2       # 
+  
+# Oscillation Prevention Parameters
+# ---------------------------------------------------------------
+  oscillation_reset_dist: 0.15  # [m] 可以适当调大，防止在原地旋转时被误判为震荡

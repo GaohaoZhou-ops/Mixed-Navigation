@@ -1,10 +1,10 @@
 #==================== 通用代价地图参数 ====================
 # 机器人的几何形状，可以是'footprint'或'robot_radius'
 # footprint: [[x1, y1], [x2, y2], ..., [xn, yn]] # 对于非圆形机器人
-robot_radius: 0.18 # 对于圆形机器人，单位：米
+robot_radius: 0.35 # 对于圆形机器人，单位：米
 
 # 障碍物膨胀半径，即在障碍物外围增加的安全距离
-inflation_radius: 0.4
+inflation_radius: 0.05
 
 # 代价递减因子，越高，离障碍物越远代价越小
 cost_scaling_factor: 3.0

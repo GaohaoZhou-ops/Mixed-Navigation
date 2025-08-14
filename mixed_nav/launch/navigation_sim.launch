@@ -8,14 +8,14 @@
       <include file="$(find mixed_nav)/launch/map_server.launch">
             <arg name="floor_name" default="$(arg floor_name)" />
             <arg name="launch_rviz" value="false" />
-            <arg name="launch_pcd" value="true" />
+            <arg name="launch_pcd" value="false" />
             <arg name="map_frame" value="$(arg map_frame)" />
       </include>
 
       <!-- move_base -->
       <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
-            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="global_costmap" />
-            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" ns="local_costmap" />
+            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" />
+            <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/local_costmap_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/global_costmap_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/dwa_local_planner_params.yaml" command="load" />
