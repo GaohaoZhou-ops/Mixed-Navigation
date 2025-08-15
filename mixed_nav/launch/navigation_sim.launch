@@ -16,7 +16,8 @@
       <node pkg="move_base" type="move_base" respawn="false" name="move_base" output="screen">
             <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" />
-            <rosparam file="$(find mixed_nav)/config/local_costmap_params.yaml" command="load" />
+            <!-- <rosparam file="$(find mixed_nav)/config/local_costmap_params_d435i.yaml" command="load" /> -->
+            <rosparam file="$(find mixed_nav)/config/local_costmap_params_lidar.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/global_costmap_params.yaml" command="load" />
             <!-- <rosparam file="$(find mixed_nav)/config/dwa_local_planner_params.yaml" command="load" /> -->
             <rosparam file="$(find mixed_nav)/config/teb_local_planner_params.yaml" command="load" />

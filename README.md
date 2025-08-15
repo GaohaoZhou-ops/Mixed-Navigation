@@ -22,6 +22,7 @@ The hardware and testing facilities for this project were provided by the `Insti
 # News & Future Work
 
 ## News
+* 2025-08-15: Add lidar local costmap;
 * 2025-08-15: Add nav path recorder;
 * 2025-08-15: Add TEB local planner;
 * 2025-08-12: Repo initialized;
