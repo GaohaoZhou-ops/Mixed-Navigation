@@ -21,6 +21,10 @@ The hardware and testing facilities for this project were provided by the `Insti
 ----
 # News & Future Work
 
+## News
+* 2025-08-15: Add TEB local planner;
 * 2025-08-12: Repo initialized;
+
+## TODO
 
 * Target: Add multi robot navigation;

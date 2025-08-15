@@ -2,7 +2,7 @@
       <arg name="map_frame" default="map" />
       <arg name="base_frame" default="base_link" />
       <arg name="odom_frame" default="odom" />
-      <arg name="floor_name" default="floor0" />
+      <arg name="floor_name" default="mymap" />
 
       <!-- map server combine -->
       <include file="$(find mixed_nav)/launch/map_server.launch">
@@ -18,9 +18,11 @@
             <rosparam file="$(find mixed_nav)/config/costmap_common_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/local_costmap_params.yaml" command="load" />
             <rosparam file="$(find mixed_nav)/config/global_costmap_params.yaml" command="load" />
-            <rosparam file="$(find mixed_nav)/config/dwa_local_planner_params.yaml" command="load" />
+            <!-- <rosparam file="$(find mixed_nav)/config/dwa_local_planner_params.yaml" command="load" /> -->
+            <rosparam file="$(find mixed_nav)/config/teb_local_planner_params.yaml" command="load" />
             <param name="base_global_planner" value="navfn/NavfnROS" />
-            <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" />
+            <!-- <param name="base_local_planner" value="dwa_local_planner/DWAPlannerROS" /> -->
+            <param name="base_local_planner" value="teb_local_planner/TebLocalPlannerROS" />
       </node>
 
       <!-- move base rviz -->

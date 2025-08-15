@@ -28,6 +28,7 @@ https://pan.baidu.com/s/1N1MpEK--n21-cuk45Z0BBA?pwd=sf9y
 ```bash
 $ sudo apt-get install ros-noetic-navigation ros-noetic-tf2-sensor-msgs libopenvdb-dev
 $ sudo apt-get install libopenvdb-dev
+$ sudo apt-get install ros-noetic-teb-local-planner
 ```
 
 ## conda 环境

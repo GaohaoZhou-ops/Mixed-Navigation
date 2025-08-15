@@ -29,6 +29,7 @@ In your environment, you need to install, but are not limited to, the following 
 ```bash
 $ sudo apt-get install ros-noetic-navigation ros-noetic-tf2-sensor-msgs libopenvdb-dev
 $ sudo apt-get install libopenvdb-dev
+$ sudo apt-get install ros-noetic-teb-local-planner
 ```
 
 ## Conda Environment
