@@ -19,6 +19,7 @@ add_service_files(
   Switch2DMap.srv
   SwitchPath.srv
   SwitchFloor.srv
+  StartRecord.srv
 )
 add_action_files(
   FILES

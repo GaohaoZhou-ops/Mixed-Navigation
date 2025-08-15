@@ -1,0 +1,6 @@
+# Request
+string path_name
+---
+# Response
+bool success
+string message

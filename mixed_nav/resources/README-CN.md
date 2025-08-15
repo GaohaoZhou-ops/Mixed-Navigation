@@ -224,12 +224,64 @@ $ roslaunch mixed_nav map_server.launch
 ---
 # Step5. 设置导航点
 
-你可以在 `waypoints` 文件夹中修改 `nav_points.json` 这个文件用来记录导航点，导航点包含了 **xyz空间坐标** 与 **四元数**，且有 **组** 的概念，在编写完成后使用下面的命令可以在 rviz 中查看这些导航点构成的可视化路径：
+在完成地图编辑后使用下面的命令启动导航点记录节点，你需要在 `src/Mixed-Navigation/mixed_nav/launch/record_nav_points.launch` 文件中明确指出当前地图所在的楼层 `floor_name` 以让 map_server 加载地图信息：
+ 
+```bash
+$ cd nav_ws
+$ source devel/setup.bash 
+$ roslaunch mixed_nav record_nav_points.launch
+```
+
+记录节点每次启动后可以录制多条导航轨迹，新开一个终端并调用服务 `/start_record_nav_point` 来告知节点当前路径名，这里假设为 `path_alpha`
 
 ```bash
 $ cd nav_ws
 $ source devel/setup.bash 
-$ roslaunch mixed_nav map_server.launch
+$ rosservice call /start_record_nav_point "path_name: 'path_alpha'" 
+```
+
+然后在 rviz 窗口中使用 `2D Nav Goal` 按钮按照顺序逐个创建导航点；如果你在录制过程中操作失误，可以调用服务 `/undo_record_nav_point` 取消最近一次记录。
+
+当一条路径录制结束后调用服务 `/finish_record_nav_point` 告知当前结束录制。
+
+![record_path](images/path_record.png)
+
+最终得到的路径会保存到 `src/Mixed-Navigation/mixed_nav/resources/floors/floor_name/waypoints.json` 文件中：
+
+```json
+{
+  "path_alpha": [
+      {
+          "position": {
+              "x": 1.382780909538269,
+              "y": 3.176682710647583,
+              "z": 0.0
+          },
+          "orientation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0114526433511636,
+              "w": 0.9999344163295266
+          }
+      },
+    ],
+    // ...
+    "path_beta": [
+    {
+        "position": {
+            "x": 3.6949002742767334,
+            "y": 3.6009724140167236,
+            "z": 0.0
+        },
+        "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.011048003717325597,
+            "w": 0.9999389689445362
+        }
+    },
+    ]
+  }
 ```
 
 ----

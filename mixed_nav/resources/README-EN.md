@@ -220,13 +220,64 @@ $ roslaunch mixed_nav map_server.launch
 
 ---
 # Step 5. Set Waypoints
-
-You can modify the `nav_points.json` file in the `waypoints` folder to record waypoints. Waypoints contain **xyz coordinates** and **quaternions**, and have the concept of **groups**. Once written, use the following command to display them in rviz. View the visual path formed by these navigation points in bash:
+After completing map editing, use the following command to start the navigation point recording node. You need to specify the current map floor, `floor_name`, in the `src/Mixed-Navigation/mixed_nav/launch/record_nav_points.launch` file to allow map_server to load the map information:
 
 ```bash
 $ cd nav_ws
 $ source devel/setup.bash
-$ roslaunch mixed_nav map_server.launch
+$ roslaunch mixed_nav record_nav_points.launch
+```
+
+The recording node can record multiple navigation paths each time it is started. Open a new terminal and call the service `/start_record_nav_point` to inform the node of the current path name, assuming `path_alpha` here.
+
+```bash
+$ cd nav_ws
+$ source devel/setup.bash
+$ rosservice call /start_record_nav_point "path_name: 'path_alpha'"
+```
+
+Then use it in the rviz window. The `2D Nav Goal` button creates navigation points sequentially. If you make a mistake while recording, you can cancel the most recent recording by calling the `/undo_record_nav_point` service.
+
+When a path recording is complete, call the `/finish_record_nav_point` service to notify the user that the recording has ended.
+
+![record_path](images/path_record.png)
+
+The resulting path will be saved in the `src/Mixed-Navigation/mixed_nav/resources/floors/floor_name/waypoints.json` file:
+
+```json
+{
+  "path_alpha": [
+      {
+          "position": {
+              "x": 1.382780909538269,
+              "y": 3.176682710647583,
+              "z": 0.0
+          },
+          "orientation": {
+              "x": 0.0,
+              "y": 0.0,
+              "z": 0.0114526433511636,
+              "w": 0.9999344163295266
+          }
+      },
+    ],
+    // ...
+    "path_beta": [
+    {
+        "position": {
+            "x": 3.6949002742767334,
+            "y": 3.6009724140167236,
+            "z": 0.0
+        },
+        "orientation": {
+            "x": 0.0,
+            "y": 0.0,
+            "z": 0.011048003717325597,
+            "w": 0.9999389689445362
+        }
+    },
+    ]
+  }
 ```
 
 ----

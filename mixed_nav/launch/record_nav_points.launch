@@ -1,0 +1,12 @@
+<launch>
+    <arg name="floor_name" default="floor1" />
+
+    <!-- record node -->
+    <node pkg="mixed_nav" type="recorder_node.py" name="nav_point_recorder" output="screen">
+        <param name="floor_name" value="$(arg floor_name)" />
+    </node>
+    <!-- map display -->
+    <node pkg="map_server" type="map_server" name="view_map" args="$(find mixed_nav)/resources/floors/$(arg floor_name)/$(arg floor_name).yaml" />
+    <node pkg="rviz" type="rviz" name="map_rviz" args="-d $(find mixed_nav)/rviz/record_path.rviz"/>
+
+</launch>
