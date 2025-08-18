@@ -22,6 +22,7 @@ The hardware and testing facilities for this project were provided by the `Insti
 # News & Future Work
 
 ## News
+* 2025-08-18: Add Livox Mid360 lidar support;
 * 2025-08-15: Add lidar local costmap;
 * 2025-08-15: Add nav path recorder;
 * 2025-08-15: Add TEB local planner;
