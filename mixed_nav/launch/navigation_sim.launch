@@ -43,4 +43,9 @@
             args="0 0 0 0 0 0 $(arg odom_frame) $(arg base_frame)" />
       <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_laser_static" 
             args="0 0 0 0 0 0 $(arg base_frame) camera_link" />
+
+      <node pkg="tf2_ros" type="static_transform_publisher" name="base_link_to_livox" 
+            args="0 0 0 0 0 0 base_link livox_frame" />
+
+
 </launch>

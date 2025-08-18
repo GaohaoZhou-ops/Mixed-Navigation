@@ -26,11 +26,11 @@ local_costmap:
   plugins:
     - {name: obstacle_layer,  type: "costmap_2d::ObstacleLayer"}
     - {name: inflation_layer, type: "costmap_2d::InflationLayer"}
-    - {name: rgbd_obstacle_layer, type: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer"}
+    - {name: lidar_obstacle_layer, type: "spatio_temporal_voxel_layer/SpatioTemporalVoxelLayer"}
 
-  rgbd_obstacle_layer:
+  lidar_obstacle_layer:
     enabled:               true
-    voxel_decay:           5     #seconds if linear, e^n if exponential
+    voxel_decay:           1      #seconds if linear, e^n if exponential
     decay_model:           0      #0=linear, 1=exponential, -1=persistent
     voxel_size:            0.05   #meters
     track_unknown_space:   true   #default space is unknown
@@ -45,10 +45,10 @@ local_costmap:
     transform_tolerance:   0.2    # seconds
     mapping_mode:          false  # default off, saves map not for navigation
     map_save_duration:     60     #default 60s, how often to autosave
-    observation_sources:   rgbd1_clear rgbd1_mark
-    rgbd1_mark:
+    observation_sources:   lidar_mark lidar_clear
+    lidar_mark:
       data_type: PointCloud2
-      topic: /cloud_registered_1
+      topic: /livox/lidar
       marking: true
       clearing: false
       min_obstacle_height: 0.0     #default 0, meters
@@ -59,10 +59,10 @@ local_costmap:
       clear_after_reading: true    #default false, clear the buffer after the layer gets readings from it
       filter: "voxel"              #default passthrough, apply "voxel", "passthrough", or no filter to sensor data, recommended to have at one filter on
       voxel_min_points: 0          #default 0, minimum points per voxel for voxel filter
-    rgbd1_clear:
+    lidar_clear:
       enabled: true                #default true, can be toggled on/off with associated service call
       data_type: PointCloud2
-      topic: /cloud_registered_1
+      topic: /livox/lidar
       marking: false
       clearing: true
       min_z: 0.1                   #default 0, meters
